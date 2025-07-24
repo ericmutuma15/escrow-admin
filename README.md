@@ -7,6 +7,12 @@ This is a modern admin dashboard for managing an escrow system, built with React
 
 👉 [Live App on Vercel](https://mutuma-escrowproject.vercel.app)
 
+## Login Information
+
+For demo/testing purposes, you can log in using **any email** (as long as it is in a valid email format) and **any password** (must be alphanumeric and at least 8 characters long).
+
+---
+
 ## Tech Stack
 
 - **React** (UI library)
@@ -23,6 +29,8 @@ This is a modern admin dashboard for managing an escrow system, built with React
 - Review and update parcel statuses
 - Generate and export financial reports (CSV/PDF)
 - Responsive sidebar navigation
+
+
 
 ## Getting Started (Development)
 
