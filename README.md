@@ -1,12 +1,55 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Escrow Admin Dashboard
 
-Currently, two official plugins are available:
+This is a modern admin dashboard for managing an escrow system, built with React and Vite. The app allows admins to manage parcels, agents, vendors, and view financial reports, all powered by a Supabase backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Production Link
 
-## Expanding the ESLint configuration
+👉 [Live App on Vercel](https://mutuma-escrowproject.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **React** (UI library)
+- **Vite** (build tool)
+- **Supabase** (PostgreSQL database & auth)
+- **Tailwind CSS** (styling)
+- **Chart.js** (data visualization)
+- **jsPDF** (PDF export)
+
+## Features
+
+- Secure login and authentication
+- Manage parcels, agents, and vendors
+- Review and update parcel statuses
+- Generate and export financial reports (CSV/PDF)
+- Responsive sidebar navigation
+
+## Getting Started (Development)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ericmutuma15/escrow-admin.git
+   cd escrow-admin
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+   - Copy `.env.example` to `.env` (or edit `.env` directly)
+   - Add your Supabase project credentials (see `.env` for details)
+
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   The app will be available at [http://localhost:5173](http://localhost:5173)
+
+## Deployment
+
+This app is ready to deploy on [Vercel](https://vercel.com/) and supports client-side routing out of the box.
+
+---
+For any issues or contributions, please open an issue or pull request on GitHub.
