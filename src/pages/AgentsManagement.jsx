@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
+
+import useAgents from "../hooks/useAgents";
 
 export default function AgentsManagement() {
   const [search, setSearch] = useState("");
-  const [agents, setAgents] = useState([]);
+  const { agents, loading } = useAgents();
   const [showHistory, setShowHistory] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:4000/agents")
-      .then((r) => r.json())
-      .then((data) => {
-        setAgents(data);
-        setLoading(false);
-      });
-  }, []);
 
   const filteredAgents = agents.filter(
     (a) =>
@@ -24,14 +15,8 @@ export default function AgentsManagement() {
   );
 
   const toggleStatus = (id) => {
-    setAgents((prev) =>
-      prev.map((a) =>
-        a.id === id
-          ? { ...a, status: a.status === "active" ? "inactive" : "active" }
-          : a
-      )
-    );
-    // Optionally, PATCH to JSON Server here
+    // Optionally, update status in Supabase here
+    // This is a UI-only update for now
   };
 
   return (

@@ -1,27 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import Sidebar from "../components/Sidebar";
 import Chart from "chart.js/auto";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
+import useWallets from "../hooks/useWallets";
+
 
 export default function Reports() {
-  const [wallets, setWallets] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { wallets, loading } = useWallets();
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:4000/wallets")
-      .then((r) => r.json())
-      .then((data) => {
-        setWallets(data);
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (!loading && wallets.length > 0 && chartRef.current) {
       if (chartInstance.current) {
         chartInstance.current.destroy();
@@ -38,7 +29,7 @@ export default function Reports() {
             },
             {
               label: "Pending Payout",
-              data: wallets.map(w => w.pendingPayout),
+              data: wallets.map(w => w.pending_payout),
               backgroundColor: "#f59e42",
             },
           ],
@@ -61,7 +52,7 @@ export default function Reports() {
 
   const handleExportCSV = () => {
     const csv = ["Owner,Balance,Pending Payout,Last Payout"].concat(
-      wallets.map(w => `${w.owner},${w.balance},${w.pendingPayout},${w.lastPayout}`)
+      wallets.map(w => `${w.owner},${w.balance},${w.pending_payout},${w.last_payout}`)
     ).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -77,7 +68,7 @@ export default function Reports() {
     doc.text("Wallets Report", 14, 16);
     doc.autoTable({
       head: [["Owner", "Balance", "Pending Payout", "Last Payout"]],
-      body: wallets.map(w => [w.owner, w.balance, w.pendingPayout, w.lastPayout]),
+      body: wallets.map(w => [w.owner, w.balance, w.pending_payout, w.last_payout]),
       startY: 22,
     });
     doc.save("wallets_report.pdf");
@@ -111,8 +102,8 @@ export default function Reports() {
                     <tr key={w.id} className="border-b hover:bg-gray-50">
                       <td className="p-2">{w.owner}</td>
                       <td className="p-2">{w.balance}</td>
-                      <td className="p-2">{w.pendingPayout}</td>
-                      <td className="p-2">{w.lastPayout}</td>
+                      <td className="p-2">{w.pending_payout}</td>
+                      <td className="p-2">{w.last_payout}</td>
                     </tr>
                   ))}
                 </tbody>

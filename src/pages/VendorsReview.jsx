@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Sidebar from "../components/Sidebar";
 
-export default function VendorsReview() {
-  const [vendors, setVendors] = useState([]);
-  const [loading, setLoading] = useState(true);
+import useVendors from "../hooks/useVendors";
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:4000/vendors")
-      .then((r) => r.json())
-      .then((data) => {
-        setVendors(data);
-        setLoading(false);
-      });
-  }, []);
+export default function VendorsReview() {
+  const { vendors, loading } = useVendors();
 
   const handleAction = (id, action) => {
-    setVendors((prev) =>
-      prev.map((v) =>
-        v.id === id ? { ...v, status: action === "approve" ? "approved" : "rejected" } : v
-      )
-    );
-    // Optionally, PATCH to JSON Server here
+    // Optionally, update status in Supabase here
+    // This is a UI-only update for now
   };
 
   return (

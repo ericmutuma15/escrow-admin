@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 
-export default function ParcelsManagement() {
-  const [parcels, setParcels] = useState([]);
-  const [statusFilter, setStatusFilter] = useState("");
-  const [loading, setLoading] = useState(true);
+import useParcels from "../hooks/useParcels";
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:4000/parcels")
-      .then((r) => r.json())
-      .then((data) => {
-        setParcels(data);
-        setLoading(false);
-      });
-  }, []);
+export default function ParcelsManagement() {
+  const { parcels, loading } = useParcels();
+  const [statusFilter, setStatusFilter] = useState("");
 
   const filteredParcels = statusFilter
     ? parcels.filter((p) => p.status === statusFilter)
     : parcels;
 
   const handleStatusChange = (id, newStatus) => {
-    setParcels((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p))
-    );
-    // Optionally, PATCH to JSON Server here
+    // Optionally, update status in Supabase here
+    // This is a UI-only update for now
   };
 
   return (

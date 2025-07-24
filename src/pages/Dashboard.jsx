@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+
+import useParcels from "../hooks/useParcels";
+import useAgents from "../hooks/useAgents";
 
 function StatusIcon({ status }) {
   if (status === "delivered") {
@@ -13,24 +16,10 @@ function StatusIcon({ status }) {
 }
 
 export default function Dashboard() {
-  const [parcels, setParcels] = useState([]);
-  const [agents, setAgents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const [parcelsRes, agentsRes] = await Promise.all([
-        fetch("http://localhost:4000/parcels").then((r) => r.json()),
-        fetch("http://localhost:4000/agents").then((r) => r.json()),
-      ]);
-      setParcels(parcelsRes);
-      setAgents(agentsRes);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
+  const { parcels, loading: parcelsLoading } = useParcels();
+  const { agents, loading: agentsLoading } = useAgents();
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const loading = parcelsLoading || agentsLoading;
 
   return (
     <div className="flex min-h-screen bg-gray-50">
