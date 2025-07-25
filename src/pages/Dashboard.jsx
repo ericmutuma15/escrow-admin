@@ -7,12 +7,30 @@ import useAgents from "../hooks/useAgents";
 
 function StatusIcon({ status }) {
   if (status === "delivered") {
-    return <span title="Delivered" className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2 align-middle"></span>;
+    return (
+      <span
+        title="Delivered"
+        className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2 align-middle shadow-green-400 shadow-lg animate-pulse"
+        style={{ boxShadow: '0 0 10px 2px #4ade80, 0 0 20px 4px #4ade80' }}
+      ></span>
+    );
   }
   if (status === "failed") {
-    return <span title="Failed" className="inline-block w-4 h-4 rounded-full bg-red-500 mr-2 align-middle"></span>;
+    return (
+      <span
+        title="Failed"
+        className="inline-block w-4 h-4 rounded-full bg-red-500 mr-2 align-middle shadow-red-400 shadow-lg animate-pulse"
+        style={{ boxShadow: '0 0 10px 2px #f87171, 0 0 20px 4px #f87171' }}
+      ></span>
+    );
   }
-  return <span title="In Transit" className="inline-block w-4 h-4 rounded-full bg-yellow-400 mr-2 align-middle"></span>;
+  return (
+    <span
+      title="In Transit"
+      className="inline-block w-4 h-4 rounded-full bg-yellow-400 mr-2 align-middle shadow-yellow-300 shadow-lg animate-pulse"
+      style={{ boxShadow: '0 0 10px 2px #fde047, 0 0 20px 4px #fde047' }}
+    ></span>
+  );
 }
 
 export default function Dashboard() {

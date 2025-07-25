@@ -49,7 +49,14 @@ For demo/testing purposes, you can log in using **any email** (as long as it is 
    - Copy `.env.example` to `.env` (or edit `.env` directly)
    - Add your Supabase project credentials (see `.env` for details)
 
-4. **Start the development server:**
+
+4. **Start the local mock API server (for development):**
+   ```bash
+   npx json-server --watch db.json --port 4000
+   ```
+   This will start a mock REST API at [http://localhost:4000](http://localhost:4000)
+
+5. **Start the development server:**
    ```bash
    npm run dev
    ```
