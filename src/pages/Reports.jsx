@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Chart from "chart.js/auto";
+
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 
 import useWallets from "../hooks/useWallets";
 
@@ -31,7 +32,7 @@ export default function Reports() {
             },
             {
               label: "Pending Payout",
-              data: wallets.map(w => w.pending_payout),
+              data: wallets.map(w => w.pendingPayout ?? w.pending_payout),
               backgroundColor: "#f59e42",
             },
           ],
@@ -54,7 +55,7 @@ export default function Reports() {
 
   const handleExportCSV = () => {
     const csv = ["Owner,Balance,Pending Payout,Last Payout"].concat(
-      wallets.map(w => `${w.owner},${w.balance},${w.pending_payout},${w.last_payout}`)
+      wallets.map(w => `${w.owner},${w.balance},${w.pendingPayout ?? w.pending_payout},${w.lastPayout ?? w.last_payout}`)
     ).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -68,9 +69,9 @@ export default function Reports() {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     doc.text("Wallets Report", 14, 16);
-    doc.autoTable({
+    autoTable(doc, {
       head: [["Owner", "Balance", "Pending Payout", "Last Payout"]],
-      body: wallets.map(w => [w.owner, w.balance, w.pending_payout, w.last_payout]),
+      body: wallets.map(w => [w.owner, w.balance, w.pendingPayout ?? w.pending_payout, w.lastPayout ?? w.last_payout]),
       startY: 22,
     });
     doc.save("wallets_report.pdf");
@@ -114,8 +115,8 @@ export default function Reports() {
                     <tr key={w.id} className="border-b hover:bg-gray-50">
                       <td className="p-2">{w.owner}</td>
                       <td className="p-2">{w.balance}</td>
-                      <td className="p-2">{w.pending_payout}</td>
-                      <td className="p-2">{w.last_payout}</td>
+                      <td className="p-2">{w.pendingPayout ?? w.pending_payout}</td>
+                      <td className="p-2">{w.lastPayout ?? w.last_payout}</td>
                     </tr>
                   ))}
                 </tbody>
